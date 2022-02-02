@@ -12,6 +12,7 @@ type Server struct {
 	Autocode Autocode `mapstructure:"autoCode" json:"autoCode" yaml:"autoCode"`
 	// gorm
 	Mysql  MySql `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
+	Pgsql  Pgsql `mapstructure:"pgsql" json:"pgsql" yaml:"pgsql"`
 	DBList []DB  `mapstructure:"db-list" json:"db-list" yaml:"db-list"`
 
 	// oss
