@@ -61,5 +61,15 @@ func (initDBService *InitDBService) initMysqlData() error {
 	return model.MysqlDataInitialize(
 		system.Api,
 		system.User,
+		system.Casbin,
+		system.BaseMenu,
+		system.Authority,
+		system.Dictionary,
+		system.UserAuthority,
+		system.DataAuthorities,
+		system.AuthoritiesMenus,
+		system.DictionaryDetail,
+		system.ViewAuthorityMenuMysql,
+		example.FileMysql,
 	)
 }
