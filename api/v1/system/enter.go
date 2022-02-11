@@ -9,7 +9,7 @@ type ApiGroup struct {
 }
 
 var (
-	userService = service.ServiceGroupApp.SystemServiceGroup.UserService
-	jwtService  = service.ServiceGroupApp.SystemServiceGroup.JwtService
-	initService = service.ServiceGroupApp.SystemServiceGroup.InitService
+	userService   = service.ServiceGroupApp.SystemServiceGroup.UserService
+	jwtService    = service.ServiceGroupApp.SystemServiceGroup.JwtService
+	initDBService = service.ServiceGroupApp.SystemServiceGroup.InitDBService
 )

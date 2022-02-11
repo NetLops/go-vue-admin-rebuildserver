@@ -5,10 +5,12 @@ import (
 	uuid "github.com/satori/go.uuid"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"path/filepath"
 	"rebuildServer/config"
 	"rebuildServer/global"
 	model "rebuildServer/model/system"
 	"rebuildServer/model/system/request"
+	"rebuildServer/source/example"
 	"rebuildServer/source/system"
 	"rebuildServer/utils"
 )
@@ -22,7 +24,7 @@ import (
 // param: sql config.MySql
 //
 // return: error
-func (InitDBService *InitDBService) writeMysqlConfig(mysql config.MySql) error {
+func (initDBService *InitDBService) writeMysqlConfig(mysql config.MySql) error {
 	global.GVA_CONFIG.Mysql = mysql
 	cs := utils.StructToMap(global.GVA_CONFIG)
 	for k, v := range cs {
@@ -55,8 +57,21 @@ func (initDBService *InitDBService) initMysqlDB(conf request.InitDB) error {
 		return err
 	}
 
+	if err := initDBService.initMysqlData(); err != nil {
+		global.GVA_DB = nil
+		return err
+	}
+
+	if err := initDBService.writeMysqlConfig(mysqlConfig); err != nil {
+		return err
+	}
+
+	global.GVA_CONFIG.Autocode.Root, _ = filepath.Abs("..")
+	return nil
+
 }
 
+// initData mysql 初始化数据
 func (initDBService *InitDBService) initMysqlData() error {
 	return model.MysqlDataInitialize(
 		system.Api,
