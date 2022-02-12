@@ -6,6 +6,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"net/http"
 	"rebuildServer/global"
+	"rebuildServer/middleware"
 	"rebuildServer/router"
 )
 
@@ -49,5 +50,10 @@ func Routers() *gin.Engine {
 	{
 		systemRouter.InitBaseRouter(PublicGroup) // 注册基础功能路由，不做鉴权
 		systemRouter.InitInitRouter(PublicGroup) // 自动初始化相关
+	}
+	PrivateGroup := Router.Group("")
+	PrivateGroup.Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())
+	{
+
 	}
 }

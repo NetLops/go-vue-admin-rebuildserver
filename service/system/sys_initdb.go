@@ -13,6 +13,15 @@ import (
 type InitDBService struct {
 }
 
+// InitDB
+//
+// Description: 创建数据库并初始化 总入口
+//
+// receiver: initDBService
+//
+// param: conf request.InitDB
+//
+// return: error
 func (initDBService *InitDBService) InitDB(conf request.InitDB) error {
 	switch conf.DBType {
 	case "mysql":
@@ -24,6 +33,14 @@ func (initDBService *InitDBService) InitDB(conf request.InitDB) error {
 	}
 }
 
+// InitTables
+//
+// Description: 初始化表
+//
+// receiver: initDBService
+//
+//
+// return: error
 func (initDBService *InitDBService) InitTables() error {
 	return global.GVA_DB.AutoMigrate(
 		system.SysApi{},

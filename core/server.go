@@ -21,4 +21,6 @@ func RunWindowsServer() {
 		system.LoadAll()
 	}
 
+	Router := initialize.Routers()
+
 }
