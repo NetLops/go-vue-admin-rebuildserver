@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-var operationRecordService = service.ServuceGroupApp.SystemServiceGroup.OperationRecordService
+var operationRecordService = service.ServiceGroupApp.SystemServiceGroup.OperationRecordService
 
 func OperationRecord() gin.HandlerFunc {
 	return func(context *gin.Context) {

@@ -6,4 +6,5 @@ type ServiceGroup struct {
 	JwtService
 	InitDBService
 	CasbinService
+	ApiService
 }
