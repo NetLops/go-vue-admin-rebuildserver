@@ -6,4 +6,5 @@ type RouterGroup struct {
 	InitRouter
 	JwtRouter
 	UserRouter
+	MenuRouter
 }
