@@ -9,4 +9,6 @@ type ServiceGroup struct {
 	ApiService
 	MenuService
 	BaseMenuService
+	SystemConfigService
+	AutoCodeService
 }

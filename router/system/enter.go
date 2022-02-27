@@ -7,4 +7,7 @@ type RouterGroup struct {
 	JwtRouter
 	UserRouter
 	MenuRouter
+	SysRouter
+	CasbinRouter
+	AutoCodeRouter
 }

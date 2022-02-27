@@ -9,7 +9,7 @@ type Server struct {
 	System  System  `mapstructure:"system" json:"system" yaml:"system"`
 	Captcha Captcha `mapstructure:"captcha" json:"captcha" yaml:"captcha"`
 	// auto
-	Autocode Autocode `mapstructure:"autoCode" json:"autoCode" yaml:"autoCode"`
+	AutoCode Autocode `mapstructure:"autoCode" json:"autoCode" yaml:"autoCode"`
 	// gorm
 	Mysql  MySql `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
 	Pgsql  Pgsql `mapstructure:"pgsql" json:"pgsql" yaml:"pgsql"`

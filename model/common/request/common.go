@@ -14,6 +14,10 @@ type GetById struct {
 	ID float64 `json:"id" form:"id"` // 主键ID
 }
 
+func (r *GetById) Uint() uint {
+	return uint(r.ID)
+}
+
 type IdsReq struct {
 	Ids []int `json:"ids" form:"ids"`
 }
