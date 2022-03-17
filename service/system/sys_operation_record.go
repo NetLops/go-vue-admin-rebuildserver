@@ -62,6 +62,17 @@ func (operationRecordService *OperationRecordService) GetSysOperationRecord(id u
 	return
 }
 
+// GetSysOperationRecordInfoList
+//
+// Description: 分页获取操作记录列表
+//
+// receiver: operationRecordService
+//
+// param: info systemReq.SysOperationSearch
+//
+// return: err error
+// return: list interface{}
+// return: total int64
 func (operationRecordService *OperationRecordService) GetSysOperationRecordInfoList(info systemReq.SysOperationSearch) (err error, list interface{}, total int64) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)

@@ -10,4 +10,9 @@ type RouterGroup struct {
 	SysRouter
 	CasbinRouter
 	AutoCodeRouter
+	AuthorityRouter
+	DictionaryRouter
+	AutoCodeHistoryRouter
+	OperationRecordRouter
+	DictionaryDetailRouter
 }

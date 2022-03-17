@@ -6,6 +6,7 @@ import (
 	"rebuildServer/global"
 	"rebuildServer/model/common/request"
 	"rebuildServer/model/system"
+	"rebuildServer/model/system/response"
 	"rebuildServer/utils"
 	"strings"
 	"time"
@@ -48,7 +49,7 @@ func (autoCodeHistoryService *AutoCodeHistoryService) Repeat(structName string) 
 }
 
 // RollBack 回滚
-func (autoCodeService *AutoCodeService) RollBack(info *request.GetById) error {
+func (autoCodeHistoryService *AutoCodeHistoryService) RollBack(info *request.GetById) error {
 	md := system.SysAutoCodeHistory{}
 	if err := global.GVA_DB.Where("id = ?", info.Uint()).First(&md).Error; err != nil {
 		return err
@@ -59,13 +60,13 @@ func (autoCodeService *AutoCodeService) RollBack(info *request.GetById) error {
 		global.GVA_LOG.Error("ClearTag DeleteApiByIds:", zap.Error(err))
 	}
 	// 获取全部表名
-	dbNames, err := AutoCodeServiceApp.Database().getTables(global.GVA_CONFIG.Mysql.Dbname)
+	dbNames, err := AutoCodeServiceApp.Database().GetTables(global.GVA_CONFIG.Mysql.Dbname)
 	if err != nil {
 		global.GVA_LOG.Error("ClearTag GetTables:", zap.Error(err))
 	}
 	// 删除表
 	for _, name := range dbNames {
-		if strings.Contains(strings.ToUpper(strings.Replace(name.tableName, "_", "", -1)), strings.ToUpper(md.TableName)) { // Replace方法中-1 代表不限制覆盖次数
+		if strings.Contains(strings.ToUpper(strings.Replace(name.TableName, "_", "", -1)), strings.ToUpper(md.TableName)) { // Replace方法中-1 代表不限制覆盖次数
 			// 删除表
 			if err = AutoCodeServiceApp.DropTable(name.TableName); err != nil {
 				global.GVA_LOG.Error("ClearTag DropTable:", zap.Error(err))
@@ -106,4 +107,23 @@ func (autoCodeService *AutoCodeService) RollBack(info *request.GetById) error {
 	}
 	md.Flag = 1
 	return global.GVA_DB.Save(&md).Error
+}
+
+// Delete 删除历史数据
+func (autoCodeHistoryService *AutoCodeHistoryService) Delete(info *request.GetById) error {
+	return global.GVA_DB.Where("id = ?", info.Uint()).Delete(&system.SysAutoCodeHistory{}).Error
+}
+
+// GetList 获取系统历史数据
+func (autoCodeHistoryService *AutoCodeHistoryService) GetList(info request.PageInfo) (list []response.AutoCodeHistory, total int64, err error) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.Page - 1)
+	db := global.GVA_DB.Model(&system.SysAutoCodeHistory{})
+	var entities []response.AutoCodeHistory
+	err = db.Count(&total).Error
+	if err != nil {
+		return nil, total, err
+	}
+	err = db.Limit(limit).Offset(offset).Order("updated_at_desc").Find(&entities).Error
+	return entities, total, err
 }

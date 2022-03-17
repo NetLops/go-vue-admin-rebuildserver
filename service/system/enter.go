@@ -11,4 +11,8 @@ type ServiceGroup struct {
 	BaseMenuService
 	SystemConfigService
 	AutoCodeService
+	AuthorityService
+	DictionaryService
+	AutoCodeHistoryService
+	DictionaryDetailService
 }
